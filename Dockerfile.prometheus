@@ -1,0 +1,19 @@
+# Dockerfile
+FROM prom/prometheus:latest
+
+# 로컬에 있는 prometheus.yml과 rules 디렉터리를 이미지에 복사
+COPY prometheus.yml /etc/prometheus/prometheus.yml
+# (선택) 알림/레코딩 룰이 있다면 rules/ 폴더에 넣어 복사
+# COPY rules/ /etc/prometheus/rules/
+
+# 데이터 볼륨
+VOLUME ["/prometheus"]
+
+EXPOSE 9090
+
+# 기본 exec로 prometheus 바이너리가 이미 ENTRYPOINT에 설정되어 있는 경우가 많음.
+# 명시적으로 CMD로 설정하여 config 위치, 저장소 경로, listen 주소 지정
+ENTRYPOINT ["/bin/prometheus"]
+CMD ["--config.file=/etc/prometheus/prometheus.yml", \
+     "--storage.tsdb.path=/prometheus", \
+     "--web.listen-address=:9090"]
