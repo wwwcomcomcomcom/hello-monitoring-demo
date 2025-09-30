@@ -21,6 +21,6 @@ render() {
 render
 
 echo "prometheus.yml rendered. Starting docker compose..." >&2
-docker compose up --build -d
+docker-compose up --build -d
 
 echo "Done. Use 'docker compose ps' to see status." >&2
