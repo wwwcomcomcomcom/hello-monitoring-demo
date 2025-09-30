@@ -15,8 +15,7 @@ OUT="prometheus.yml"
 
 # Simple variable substitution without envsubst: replace ${VAR} tokens
 render() {
-  sed -e "s#\${SCRAPE_TARGET}#${SCRAPE_TARGET}#g" "$TEMPLATE" > "$OUT.tmp"
-  mv "$OUT.tmp" "$OUT"
+  sed -i "s#\${SCRAPE_TARGET}#${SCRAPE_TARGET}#g" "$OUT"
 }
 
 render
